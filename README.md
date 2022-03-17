@@ -1,2 +1,5 @@
 # GoodRequest Backend internship
-Just som casual information about an assigment for intership
+Just some casual information about an assigment for internship:
+  *
+  *
+  *
