@@ -1,10 +1,13 @@
 import express from 'express'
 
-const app = epress()
+import v1 from './api/v1'
+
+const app = express()
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
-app.get('/api/v1/users',)
+// Register router
+app.use('/api/v1', v1())
 
-export default app
+export default app app
