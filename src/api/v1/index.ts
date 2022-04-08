@@ -1,5 +1,5 @@
-import { Router } from 'express'
-import PatientsRouter from './patiens'
+import {Router} from "express"
+import PatientsRouter from './patients'
 
 const router = Router()
 
