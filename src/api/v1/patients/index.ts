@@ -1,21 +1,18 @@
-import { Router } from "express";
-import * as GetPatients from './get.patients';
-import * as PostPatients from './post.patients'
-import * as DeletePatients from './delete.patients'
-import * as PatchPatients from './patch.patient'
+import { Router } from 'express'
 
-import {
-    patientIdValidationMiddleware,
-    requestBodyValidationMiddleware
-} from "../../../middlewares/validationMiddlewares";
+import validationMiddleware from '../../../middlewares/validationMiddleware'
 
-const router = Router();
+import * as GetPatients from './get.patients'
+import * as PostPatient from './post.patient'
+import * as PatchPatient from './patch.patients'
+import * as DeletePatient from './delete.patients'
+
+const router = Router()
 
 export default () => {
-    router.get('/', GetPatients.get_all_patients);
-    router.post('/', requestBodyValidationMiddleware(), PostPatients.workflow)
-    router.delete('/:patientID', patientIdValidationMiddleware(), DeletePatients.workflow)
-    router.get('/:patientID', patientIdValidationMiddleware(), GetPatients.get_patient_by_id);
-    router.patch('/:patientID', patientIdValidationMiddleware(), requestBodyValidationMiddleware(), PatchPatients.workflow);
-    return router;
+  router.get('/', GetPatients.workflow)
+  router.post('/', validationMiddleware(PostPatient.schema), PostPatient.workflow)
+  router.patch('/:id', validationMiddleware(PatchPatient.schema), PatchPatient.workflow)
+  router.delete('/:id', DeletePatient.workflow)
+  return router
 }
