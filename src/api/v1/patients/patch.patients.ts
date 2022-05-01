@@ -1,42 +1,53 @@
-import { Request, Response} from "express"
-import { models } from "../../../db"
-import { PatientModel } from "../../../db/models/patients"
+import {Request, Response} from "express";
+import {DiagnoseModel} from "../../../db/models/diagnose_model";
+import { PatientModel} from "../../../db/models/patient_models";
+import { Gender, PatientHeight, PatientWeight } from "../../../enums/enums";
+
+const Joi = require('joi').extend(require('@joi/date'))
+
+export const schema = Joi.object({
+  body: Joi.object({
+    firstName: Joi.string().max(100).required(),
+    lastName: Joi.string().max(100).required(),
+    birthdate: Joi.date().required(),
+    weight: Joi.number().integer().min(PatientWeight.MIN).max(PatientWeight.MAX).required(),
+    height: Joi.number().integer().min(PatientHeight.MIN).max(PatientHeight.MAX).required(),
+    identificationNumber: Joi.string().pattern(/^[a-zA-Z0-9]*$/).length(12).required(),
+    gender: Joi.string().valid(Gender.MALE, Gender.FEMALE).required(),
+    diagnoseID: Joi.number().integer().min(1).required()
+  }),
+  query: Joi.object(),
+  params: Joi.object()
+})
+
 
 export const workflow = async (req: Request, res: Response) => {
 
-    const patientID: number = parseInt(req.params.patientID)
+  // use return in case of else part, findByPk -> findAll, ... - is not necessary, validate id number and birthdate
 
-    try{
-        const patient: PatientModel = await models.Patient.findOne({where: {id: patientID}})
-        for (let key in req.body) {
-            patient.set({[key]: req.body[key] })
-        }
-        await patient.save()
-        res.json({
-            "status": 200,
-            "messages": [
-                {
-                    "message": `Patient ${patientID} was patched`,
-                    "type": "SUCCESS"
-                }
-            ],
-            "patient": {
-                "id": patientID
-            }
-        })
+  const { params, body } = req
+
+  const id = Number(params.id)
+
+  const patientID: PatientModel = await PatientModel.findByPk(id)
+
+  if (!patientID) {
+    return res.status(404).json({ message: "Patient with this ID was not found", type: "FAILED" })
+  }
+
+  const diagnoseID = await DiagnoseModel.findByPk(body.diagnoseID)
+
+  if (!diagnoseID) {
+    return res.status(404).json({ message: "Diagnose with this ID does not exist in database", type: "FAILED" })
+  }
+
+  const patient = await PatientModel.update({
+    ...body
+  }, {
+    where: {
+      id
     }
-    catch (e) {
-        res.json({
-            "status": 204,
-            "messages": [
-                {
-                    "message": e.message,
-                    "type": "FAIL"
-                }
-            ],
-            "patient": {
-                "id": patientID
-            }
-        });
-    }
+  })
+
+  return res.status(200).json({ message: "Patient data were succesfully updated", type: "SUCCESS" })
 }
