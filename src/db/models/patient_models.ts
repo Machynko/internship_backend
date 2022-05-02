@@ -51,6 +51,7 @@ export default (sequelize: Sequelize, modelName: string) => {
       identificationNumber: {
         type: DataTypes.TEXT,
         allowNull: false,
+        unique: true
       },
       gender: {
         type: DataTypes.ENUM(Gender.MALE, Gender.FEMALE),
