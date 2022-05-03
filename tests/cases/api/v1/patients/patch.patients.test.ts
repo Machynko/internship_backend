@@ -1,3 +1,4 @@
+// @ts-ignore
 import supertest from "supertest";
 import {expect} from "chai";
 import app from '../../../../../src/app'

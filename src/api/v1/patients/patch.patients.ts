@@ -1,9 +1,9 @@
 import {Request, Response} from "express";
-import {DiagnoseModel} from "../../../db/models/diagnose_model";
+import {DiagnoseModel} from "../../../db/models/diagnose_models";
 import { PatientModel} from "../../../db/models/patient_models";
 import { Gender, PatientHeight, PatientWeight } from "../../../enums/enums";
+import Joi from "joi";
 
-const Joi = require('joi').extend(require('@joi/date'))
 
 export const schema = Joi.object({
   body: Joi.object({

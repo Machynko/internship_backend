@@ -1,8 +1,8 @@
 import supertest from 'supertest'
 import { expect } from 'chai'
-import app from '../../src/app'
-import { response_schema } from '../../src/api/v1/patients/get.patients'
-import { invalid } from "joi";
+import app from '../../../../../src/app'
+import { response_schema } from '../../../../../src/api/v1/patients/get.patients'
+
 
 const url = '/api/v1/patients'
 const invalidUrl = '/api/v1/stneitap'

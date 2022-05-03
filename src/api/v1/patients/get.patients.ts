@@ -1,11 +1,11 @@
 import {Request, Response} from 'express';
-import { map, toNumber, toString } from "lodash";
+import { map } from "lodash";
 import { models} from "../../../db";
 import { Gender, PersonType, TimeUnit } from "../../../enums/enums";
 import Joi from "joi";
 import { PatientHeight, PatientWeight } from "../../../enums/enums";
 import { PatientModel } from "../../../db/models/patient_models";
-import { DiagnoseModel } from "../../../db/models/diagnose_model";
+import { DiagnoseModel } from "../../../db/models/diagnose_models";
 import { SubstanceModel } from "../../../db/models/substance_models";
 import moment from "moment";
 

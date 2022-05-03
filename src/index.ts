@@ -9,5 +9,5 @@ const serverConfig: { port: number } = config.get('server')
 sequelize.sync()
 
 httpServer.listen(serverConfig.port).on('listening', () => {
-	console.log(`Server started at port ${serverConfig.port}`)
+	console.log(`Server started on port ${serverConfig.port}`)
 })

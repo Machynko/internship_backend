@@ -1,11 +1,11 @@
 import supertest from "supertest";
-import { expect} from "chai";
+import { expect } from "chai";
 import app from '../../../../../src/app'
-import {schema} from "../../../../../src/api/v1/patients/delete.patients";
-import {response_schema} from "../../../../../src/api/v1/patients/get.patients";
+import { schema } from "../../../../../src/api/v1/patients/delete.patients";
+import { response_schema } from "../../../../../src/api/v1/patients/get.patients";
 
 const url = '/api/v1/patients/'
-const patientID: number = 23
+const patientID: number = 2300
 
 describe(`[DELETE] ${url + `${patientID}`}`, () => {
     it('Response should return message about deleted patient', async() => {

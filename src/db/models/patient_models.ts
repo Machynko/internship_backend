@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { Gender } from "../../enums/enums";
 import { Models } from "../index";
-import { DiagnoseModel } from "./diagnose_model";
+import { DiagnoseModel } from "./diagnose_models";
 
 
 export class PatientModel extends Model {

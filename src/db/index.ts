@@ -2,8 +2,8 @@ import { Sequelize } from "sequelize";
 import * as database from '../../config/database'
 import { forEach } from "lodash";
 import definePatient from "./models/patient_models";
-import defineDiagnose from "./models/diagnose_model";
-import defineSubstance from "./models/substance_models";
+import defineDiagnose from './models/diagnose_models';
+import defineSubstance from './models/substance_models';
 import defineUser from "./models/user_model";
 
 const env = process.env.NODE_ENV
@@ -14,7 +14,7 @@ const sequelize = new Sequelize( url, options )
 sequelize
     .authenticate()
     .then(() => console.log('Database connection has been established successfully'))
-    .catch((err) => console.log(`Unable to coonect to database ${err.messages}`))
+    .catch((err) => console.log(`Unable to connect to database ${err.messages}`))
 
 
 const modelsBuilder = (instance: Sequelize) => ({

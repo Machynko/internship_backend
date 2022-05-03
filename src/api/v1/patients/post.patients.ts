@@ -1,8 +1,9 @@
-import {Request, Response} from "express";
+import { Request, Response } from "express";
 import Joi from "joi";
-import { DiagnoseModel} from "../../../db/models/diagnose_model";
+import { DiagnoseModel} from "../../../db/models/diagnose_models";
 import {PatientModel} from "../../../db/models/patient_models";
 import { Gender, PatientHeight, PatientWeight } from "../../../enums/enums";
+
 
 export const schema = Joi.object({
   body: Joi.object({

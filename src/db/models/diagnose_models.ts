@@ -1,7 +1,7 @@
 import {DataTypes, Model, Sequelize} from "sequelize";
-import { Models } from "../index";
 import { SubstanceModel } from "./substance_models";
 import { PatientModel } from "./patient_models";
+import { Models } from "../index";
 
 export class DiagnoseModel extends Model {
   id: number
@@ -40,3 +40,10 @@ export default (sequelize: Sequelize, modelName: string) => {
       tableName: 'diagnoses',
     }
   );
+
+  (DiagnoseModel as any).associate = (models: Models) => {
+    DiagnoseModel.belongsTo(models.Substance, {foreignKey: 'substanceID'})
+    DiagnoseModel.hasMany(models.Patient, {foreignKey: 'diagnoseID'})
+  }
+  return DiagnoseModel
+}
